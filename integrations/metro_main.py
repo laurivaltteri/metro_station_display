@@ -12,7 +12,7 @@ STX = chr(2); ETX = chr(3); EOT = chr(4); ENQ = chr(5); PAD = chr(127)
 SLP = 1
 
 ## SET TWITTER API
-# https://apps.twitter.com/app/14318063/keys
+# https://apps.twitter.com/app/*yourappno*/keys
 config ={"consumer_key":  *yourkeys*,
     "consumer_secret": *yourkeys*,
     "access_key": *yourkeys*,
