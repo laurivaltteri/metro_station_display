@@ -53,11 +53,11 @@ def write_line(message, seg):
 
     if seg == 3:
         send_ser(STX + "32000blT" + clear_scands(message) + ETX + "p")
-    elif seg == 2 and len(message) < 21:
+    elif seg == 2 and len(message) < 22:
         send_ser(STX + "22000nrT" + clear_scands(message) + ETX + "p")
-    elif seg == 1 and len(message) < 21:
+    elif seg == 1 and len(message) < 22:
         send_ser(STX + "12000nrT" + clear_scands(message) + ETX + "p")
-    elif len(message) > 20:
+    elif len(message) > 21:
         send_ser(STX + "12000nrT" + clear_scands(message[-40:-20]) + ETX + "p")
         send_ser(EOT)
         sleep(SLP)
@@ -118,9 +118,6 @@ def cast_info(mc,dname):
     if dname == "Netflix":
         write_line("Netflix and chill", 1)
         return
-    if len(mc.title) > 20:
-        write_line(mc.title[-40:-20], 1)
-        write_line(mc.title[-20:], 2)
     else:
         write_line(mc.title, 1)
 
