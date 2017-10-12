@@ -3,7 +3,7 @@
 from twitter import Api
 import pychromecast
 import spotipy, spotipy.util
-from time import sleep, strftime
+from time import sleep, strftime, strptime, gmtime
 from serial import Serial, SEVENBITS, STOPBITS_ONE, PARITY_EVEN
 from random import randint
 
@@ -131,14 +131,19 @@ def spotify_info(sitem):
 
 def disp_message(message):
     write_line("Msg", 3)
-    if len(message) > 20:
-        write_line(message[-40:-20], 1)
-        write_line(message[-20:], 2)
-    elif len(message) > 40:
-        write_line(message[-20:], 2)
+    write_line(message, 1)
+
 
 while 1:
     #print(u'ok')
+    metweet = api.GetSearch("#metronäyttö",strftime("%Y-%m-%d",gmtime()))
+    if len(metweet) > 0
+        mtime = strptime(metweet[0].created_at, '%a %b %d %H:%M:%S +0000 %Y')
+        if mktime(gmtime()) - mktime(mtime) < 3600:
+            metweet = metweet.text.split(": ",1)[1]
+            metweet = metweet.replace("#metronäyttö","")
+            disp_message(metweet.text)
+
     if sp.currently_playing() != None:
         if sp.currently_playing()['is_playing']==True:
             spotify_info(sp.currently_playing())
