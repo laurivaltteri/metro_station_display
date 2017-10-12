@@ -3,7 +3,7 @@
 from twitter import Api
 import pychromecast
 import spotipy, spotipy.util
-from time import sleep, strftime, strptime, gmtime
+from time import sleep, strftime, strptime, gmtime, mktime
 from serial import Serial, SEVENBITS, STOPBITS_ONE, PARITY_EVEN
 from random import randint
 import re
