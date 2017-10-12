@@ -44,7 +44,8 @@ ser = Serial("/dev/ttyUSB0", 600, SEVENBITS, PARITY_EVEN, STOPBITS_ONE)
 ## FUNCTIONS
 def send_ser(linestr):
     padline = PAD + PAD + linestr + PAD + PAD
-    ser.write(bytearray(padline, encoding = "ascii"))
+    padline = unicodedata.normalize('NFKD', padline).encode("ascii", "ignore")
+    ser.write(bytearray(padline))
 
 def write_line(message, seg):
     send_ser(EOT)
@@ -158,8 +159,8 @@ while 1:
     if len(metweet) > 0:
         mtime = strptime(metweet[0].created_at, '%a %b %d %H:%M:%S +0000 %Y')
         if mktime(gmtime()) - mktime(mtime) < 3600:
-            metweet = metweet.replace("#metronäyttö","")
-            disp_message(metweet.text)
+            metweet = metweet[0].text.replace(u'#metronäyttö',u'')
+            disp_message(metweet)
 
     if sp.currently_playing() != None:
         if sp.currently_playing()['is_playing']==True:
