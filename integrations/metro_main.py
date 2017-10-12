@@ -24,8 +24,8 @@ api = Api(config["consumer_key"], config["consumer_secret"],
 
 ## CHECK FOR CHROMECASTS
 chromecasts = pychromecast.get_chromecasts()
-shortnames = {"YouTube": "Tube", "Yle Areena": "Yle", "HBO Nordic": "HBO",
-    "Netflix": "Flix"}
+shortnames = {u'YouTube': u'Tube', u'Yle Areena': u'Yle', u'HBO Nordic': u'HBO',
+    u'Netflix': u'Flix'}
 
 ## SET SPOTIFY API (first time you need to give the app to rights to the scope)
 # Adding rights to scope you need to follow the prompt protocol from spotipy doc
@@ -43,6 +43,7 @@ ser = Serial("/dev/ttyUSB0", 600, SEVENBITS, PARITY_EVEN, STOPBITS_ONE)
 
 ## FUNCTIONS
 def send_ser(linestr):
+
     padline = PAD + PAD + linestr + PAD + PAD
     padline = unicodedata.normalize('NFKD', padline).encode("ascii", "ignore")
     ser.write(bytearray(padline))
@@ -97,7 +98,7 @@ def clear_scands(message):
 
 def default_disp():
     # WRITE INFO
-    write_line("Tweet", 3)
+    write_line(u'Tweet', 3)
 
     # TWITTER TRENDS
     # WOE_ID for Finland not existing
@@ -128,8 +129,8 @@ def cast_info(mc,dname):
         msource = dname
     write_line(msource, 3)
     sleep(SLP)
-    if dname == "Netflix":
-        write_line("Netflix and chill", 1)
+    if dname == u'Netflix':
+        write_line(u'Netflix and chill', 1)
         return
     else:
         write_line(mc.title, 1)
@@ -144,18 +145,18 @@ def cast_info(mc,dname):
 def spotify_info(sitem):
     artist = sitem['item']['artists'][0]['name']
     song = sitem['item']['name']
-    write_line("Sptfy", 3)
+    write_line(u'Sptfy', 3)
     write_line(song, 1)
     write_line(artist, 2)
 
 def disp_message(message):
-    write_line("Msg", 3)
+    write_line(u'Msg', 3)
     write_line(message, 1)
 
 
 while 1:
     #print(u'ok')
-    metweet = api.GetSearch("#metronäyttö",since = strftime("%Y-%m-%d",gmtime()))
+    metweet = api.GetSearch(u'#metronäyttö',since = strftime("%Y-%m-%d",gmtime()))
     if len(metweet) > 0:
         mtime = strptime(metweet[0].created_at, '%a %b %d %H:%M:%S +0000 %Y')
         if mktime(gmtime()) - mktime(mtime) < 3600:
