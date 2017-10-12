@@ -43,7 +43,7 @@ ser = Serial("/dev/ttyUSB0", 600, SEVENBITS, PARITY_EVEN, STOPBITS_ONE)
 
 ## FUNCTIONS
 def send_ser(linestr):
-
+    linestr = unicode(linestr)
     padline = PAD + PAD + linestr + PAD + PAD
     padline = unicodedata.normalize('NFKD', padline).encode("ascii", "ignore")
     ser.write(bytearray(padline))
