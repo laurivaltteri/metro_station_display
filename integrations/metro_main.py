@@ -58,14 +58,25 @@ def write_line(message, seg):
     elif seg == 1 and len(message) < 22:
         send_ser(STX + "12000nrT" + clear_scands(message) + ETX + "p")
     elif len(message) > 21:
-        send_ser(STX + "12000nrT" + clear_scands(message[-40:-20]) + ETX + "p")
+        spaces = [m.start(0) for m in re.finditer(u' ', message)]
+        spaces = [x - len(message) for x in spaces]
+        spltidx = [i for i in spaces if i > -22]
+        if len(message) > 41 and len(spltidx) > 0:
+            send_ser(STX + "12000nrT" + clear_scands(u'..'+message[spltidx[0]-19:spltidx[0]]) + ETX + "p")
+        elif len(spltidx) > 0:
+            send_ser(STX + "12000nrT" + clear_scands(message[spltidx[0]-20:spltidx[0]]) + ETX + "p")
+        else:
+            send_ser(STX + "12000nrT" + clear_scands(message[-41:-21]) + ETX + "p")
         send_ser(EOT)
         sleep(SLP)
         send_ser(EOT)
         sleep(SLP)
         send_ser("01" + ENQ) # address (from dip switches)
         sleep(SLP)
-        send_ser(STX + "22000nrT" + clear_scands(message[-20:]) + ETX + "p")
+        if len(spltidx) > 0:
+            send_ser(STX + "22000nlT" + clear_scands(message[spltidx[0]+1:]) + ETX + "p")
+        else:
+            send_ser(STX + "22000nlT" + clear_scands(message[-21:]) + ETX + "p")
     else:
         print "nothing send to serial"
     send_ser(EOT)
