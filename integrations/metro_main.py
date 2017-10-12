@@ -6,6 +6,7 @@ import spotipy, spotipy.util
 from time import sleep, strftime, strptime, gmtime
 from serial import Serial, SEVENBITS, STOPBITS_ONE, PARITY_EVEN
 from random import randint
+import re
 
 ## GLOBAL VARS
 STX = chr(2); ETX = chr(3); EOT = chr(4); ENQ = chr(5); PAD = chr(127)
