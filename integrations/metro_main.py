@@ -153,7 +153,7 @@ def disp_message(message):
 
 while 1:
     #print(u'ok')
-    metweet = api.GetSearch("#metronäyttö",strftime("%Y-%m-%d",gmtime()))
+    metweet = api.GetSearch("#metronäyttö",since = strftime("%Y-%m-%d",gmtime()))
     if len(metweet) > 0:
         mtime = strptime(metweet[0].created_at, '%a %b %d %H:%M:%S +0000 %Y')
         if mktime(gmtime()) - mktime(mtime) < 3600:
