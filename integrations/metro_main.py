@@ -175,6 +175,7 @@ while 1:
             for cc in chromecasts:
                 cc.wait()
                 mc = cc.media_controller.status
+                cc.media_controller._fire_status_changed()
                 if mc.player_state == u'PLAYING':
                     cast_info(mc, cc.status.display_name)
                 else:
