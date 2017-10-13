@@ -127,7 +127,12 @@ def cast_info(mc,dname):
         msource = shortnames[dname]
     else:
         msource = dname
-    write_line(msource, 3)
+
+    dur = mc.current_time/mc.duration
+    dur = int(round(dur*5))*chr(127)
+    ms_dur = msource.ljust(5)+dur
+    write_line(ms_dur, 3)    
+    
     sleep(SLP)
     if dname == u'Netflix':
         write_line(u'Netflix and chill', 1)
