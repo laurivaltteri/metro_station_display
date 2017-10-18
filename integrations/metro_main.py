@@ -23,7 +23,8 @@ api = Api(config["consumer_key"], config["consumer_secret"],
     config["access_key"], config["access_secret"])
 
 ## CHECK FOR CHROMECASTS
-chromecasts = pychromecast.get_chromecasts()
+cnames = pychromecast.discover_chromecasts(timeout = 10)
+chromecasts = pychromecast.get_chromecasts(cnames)
 shortnames = {u'YouTube': u'Tube', u'Yle Areena': u'Yle', u'HBO Nordic': u'HBO',
     u'Netflix': u'Flix'}
 
