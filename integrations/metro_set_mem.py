@@ -32,7 +32,7 @@ wr(addr + ENQ)
 sleep(slp)
 
 row = "1"
-wr(STX + row + col + ver + mempos + "D + Laurin metron" + chr(123) + "ytt" + chr(124) + " +" + ETX + "p")
+wr(STX + row + col + ver + mempos + "D + metron" + chr(123) + "ytt" + chr(124) + " +" + ETX + "p")
 sleep(slp)
 wr(EOT)
 
